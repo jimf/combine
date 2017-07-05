@@ -1,0 +1,5 @@
+require('./actions.test.js')
+require('./nodes')
+require('./reducers.test.js')
+require('./selectors.test.js')
+require('./util.test.js')

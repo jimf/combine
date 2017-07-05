@@ -1,0 +1,1 @@
+require('./Number.test.js')

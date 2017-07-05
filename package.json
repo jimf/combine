@@ -1,0 +1,43 @@
+{
+  "name": "combine",
+  "version": "0.1.0",
+  "description": "Visual programming tool",
+  "homepage": "https://github.aweber.io/jimf/combine",
+  "repository": {
+    "type": "git",
+    "url": "https://github.aweber.io/jimf/combine.git"
+  },
+  "private": true,
+  "scripts": {
+    "dist": "npm run dist-js && npm run dist-css",
+    "dist-css": "uglifycss node_modules/quill/dist/quill.snow.css css/normalize.css css/skeleton.css css/main.css > dist/combine.min.css",
+    "dist-js": "browserify src/main.js -o dist/combine.js -t [ babelify --presets [ es2015 ] ] && uglifyjs dist/combine.js -o dist/combine.min.js",
+    "start": "budo src/main.js --live --open --host=localhost -- -t [ babelify ]",
+    "lint": "standard",
+    "test": "tape -r babel-register test/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bulma": "^0.4.2",
+    "react": "^15.6.1",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
+    "react-dom": "^15.6.1",
+    "react-dom-factories": "^1.0.0",
+    "react-proptypes": "^1.0.0",
+    "react-select": "^1.0.0-rc.5",
+    "redux": "^3.7.1",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babelify": "^7.3.0",
+    "budo": "^10.0.3",
+    "deep-equal": "^1.0.1",
+    "standard": "^10.0.2",
+    "tape": "^4.7.0"
+  }
+}
