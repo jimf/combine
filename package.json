@@ -11,6 +11,7 @@
   "scripts": {
     "start": "budo src/main.js --live --open --host=localhost -- -t [ babelify ]",
     "lint": "standard",
+    "pretest": "npm run lint",
     "test": "tape -r babel-register test/index.js"
   },
   "license": "MIT",
