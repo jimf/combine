@@ -20,7 +20,6 @@ WIP
   - (Unclear in video what this does. Bulk drag-n-drop?)
 - Improve styles
 - General cleanup
-  - remove copy/pasta
   - remove unused utils
   - clean up state tree
   - additional test coverage
