@@ -6,7 +6,7 @@ talk [Evolving the Visual Programming Environment with React](https://www.youtub
 Credit to Jonas for the ideas. I thought the concepts seemed fun, both to
 implement and use, and wanted to take a stab at it.
 
-WIP
+_Work in progress_
 
 ## Todo
 
