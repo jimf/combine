@@ -14,6 +14,8 @@ WIP
 - Wire up `validConnections` state to disallow connecting ports of invalid types
 - Update remove-node handling to properly update connections graph
 - Define additional nodes
+- Refine node searching (search tags and aliases)
+- Add keyboard shortcuts with proximity sorting for connecting nodes
 - Add ability to "select" multiple nodes at once
   - (Unclear in video what this does. Bulk drag-n-drop?)
 - Improve styles
