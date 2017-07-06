@@ -6,6 +6,7 @@ const { div } = DOM
 
 const NodesList = ({
   availableNodes,
+  inputs,
   nodes,
   onConnectionClick,
   onRemoveNode,
@@ -25,7 +26,7 @@ const NodesList = ({
         title: nodeSpec.name
       }, nodeSpec.component && createElement(nodeSpec.component, {
         state,
-        inputs: {},
+        inputs: inputs[cid],
         updateState: updateNodeState(cid)
       }))
     })
@@ -33,6 +34,7 @@ const NodesList = ({
 
 NodesList.propTypes = {
   availableNodes: PropTypes.object.isRequired,
+  inputs: PropTypes.object.isRequired,
   nodes: PropTypes.array.isRequired,
   onRemoveNode: PropTypes.func.isRequired,
   updateNodeState: PropTypes.func.isRequired

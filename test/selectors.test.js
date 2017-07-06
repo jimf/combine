@@ -82,3 +82,46 @@ test('Selectors: validConnectionsSelector', t => {
 
   t.end()
 })
+
+test('Selectors: calculateInputsSelector', t => {
+  const addNode = actions.addNode()
+
+  const state1 = reduceActions([
+    actions.loadNodeList([
+      dummyNodes.Number,
+      dummyNodes.Add,
+      dummyNodes.Tap
+    ]),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Add.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Tap.uid)
+  ])
+  t.deepEqual(subject.calculateInputsSelector(state1), {
+    1: {},
+    2: {},
+    3: {},
+    4: {}
+  }, 'returns undefined inputs when no connections have been made')
+
+  const state2 = reduceActions([
+    actions.clickConnection(1, 'output', 'value'),
+    actions.clickConnection(3, 'input', 'operand1'),
+    actions.clickConnection(2, 'output', 'value'),
+    actions.clickConnection(3, 'input', 'operand2'),
+    actions.clickConnection(3, 'output', 'result'),
+    actions.clickConnection(4, 'input', 'value')
+  ], state1)
+  t.deepEqual(subject.calculateInputsSelector(state2), {
+    1: {},
+    2: {},
+    3: { operand1: 0, operand2: 0 },
+    4: { value: 0 }
+  }, 'returns inputs when connections have been made')
+
+  t.end()
+})

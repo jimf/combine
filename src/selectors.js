@@ -5,6 +5,12 @@ const { findWhere, flatMap, tsort } = require('./util')
 const isValidTypePair = (t1, t2) =>
   t1 === t2 || t1 === nodeTypes.Any || t2 === nodeTypes.Any
 
+const parseConnection = conn => {
+  const parts = conn.split('-')
+  parts[0] = Number(parts[0])
+  return parts
+}
+
 const appSelector = state => state.app
 const availableNodesIndexSelector = state => state.availableNodes.index
 const connectionsSelector = state => state.connections
@@ -51,19 +57,43 @@ exports.validConnectionsSelector = createSelector(
   }
 )
 
+const inverseConnectionsSelector = createSelector(
+  connectionsSelector,
+  (connections) => {
+    return Object.keys(connections).reduce((acc, connX) => {
+      connections[connX].forEach((connY) => {
+        acc[connY] = acc[connY] || []
+        acc[connY].push(connX)
+      })
+      return acc
+    }, {})
+  }
+)
+
 exports.calculateInputsSelector = createSelector(
   availableNodesIndexSelector,
   connectionsSelector,
+  inverseConnectionsSelector,
   nodesSelector,
-  (availableNodesIndex, connections, nodes) => {
-    const result = {}
+  (availableNodesIndex, connections, inverseConnections, nodes) => {
+    const result = tsort(connections).reduce((acc, conn) => {
+      const [cid, connType, name] = parseConnection(conn)
+      const node = findWhere({ cid }, nodes)
+      const spec = availableNodesIndex[node.uid]
 
-    // tsort(connections).forEach(connection => {
-    //   const [cid, connType, name] = connection.split('-')
+      acc.inputs[cid] = acc.inputs[cid] || {}
+      acc.outputs[cid] = acc.outputs[cid] || {}
 
-    //   result[cid] = result.cid || { inputs: {}, outputs: {} }
-    // })
+      if (connType === 'output') {
+        acc.outputs[cid][name] = spec.implementation(node.state, acc.inputs[cid])
+      } else if (inverseConnections[conn]) {
+        let [depCid, /* unused */, depName] = parseConnection(inverseConnections[conn][0])
+        acc.inputs[cid][name] = acc.outputs[depCid][depName]
+      }
 
-    return result
+      return acc
+    }, { inputs: {}, outputs: {} })
+
+    return result.inputs
   }
 )
