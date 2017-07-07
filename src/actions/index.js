@@ -32,7 +32,7 @@ exports.clickCanvas = (x, y, viewportWidth) => ({
 })
 
 /**
- * Click an input connection. Performing this action can do one of several
+ * Click a connection. Performing this action can do one of several
  * things, depending on the current app state.
  *
  * @summary (Cid -> ConnectionType -> InputName) -> Action
@@ -74,6 +74,23 @@ exports.TRANSLATE_NODE = 'TRANSLATE_NODE'
 exports.translateNode = (cid, offsetX, offsetY) => ({
   type: exports.TRANSLATE_NODE,
   payload: { cid, offsetX, offsetY }
+})
+
+/**
+ * Update the known position of a connection.
+ *
+ * @summary (Cid -> ConnType -> Name -> Int -> Int) -> Action
+ */
+exports.UPDATE_CONNECTION_POSITION = 'UPDATE_CONNECTION_POSITION'
+exports.updateConnectionPosition = (cid, connectionType, name, x, y) => ({
+  type: exports.UPDATE_CONNECTION_POSITION,
+  payload: {
+    cid,
+    connectionType,
+    name,
+    x,
+    y
+  }
 })
 
 /**

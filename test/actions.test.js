@@ -78,6 +78,21 @@ test('Actions: TRANSLATE_NODE', t => {
   t.end()
 })
 
+test('Actions: UPDATE_CONNECTION_POSITION', t => {
+  t.equal(subject.UPDATE_CONNECTION_POSITION, 'UPDATE_CONNECTION_POSITION', 'type defined')
+  t.deepEqual(subject.updateConnectionPosition('dummyCid', 'input', 'value', 10, 20), {
+    type: subject.UPDATE_CONNECTION_POSITION,
+    payload: {
+      cid: 'dummyCid',
+      connectionType: 'input',
+      name: 'value',
+      x: 10,
+      y: 20
+    }
+  }, 'action creator defined')
+  t.end()
+})
+
 test('Actions: UPDATE_NODE_STATE', t => {
   t.equal(subject.UPDATE_NODE_STATE, 'UPDATE_NODE_STATE', 'type defined')
   t.deepEqual(subject.updateNodeState('dummyCid', {}), {

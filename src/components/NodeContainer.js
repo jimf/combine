@@ -28,12 +28,13 @@ const NodeContainer = ({
   onRemove,
   outputs,
   style,
-  title
+  title,
+  updateConnectionPosition
 }) =>
   connectDragSource(
     div({ className: 'node card', style }, [
       createElement(NodeHeader, { key: 'h', cid, onRemove, title }),
-      createElement(NodeContent, { key: 'c', cid, inputs, onConnectionClick, outputs }, children)
+      createElement(NodeContent, { key: 'c', cid, inputs, onConnectionClick, outputs, updateConnectionPosition }, children)
     ])
   )
 

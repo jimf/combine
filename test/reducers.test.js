@@ -14,6 +14,7 @@ test('Reducers: initial state', t => {
       index: {}
     },
     connections: {},
+    connectionPositions: {},
     nodes: []
   })
   t.end()
@@ -185,6 +186,19 @@ test('Reducers: TRANSLATE_NODE action', t => {
   t.equal(state.app.state, AppState.Ready, 'puts app in ready state')
   t.equal(state.nodes[0].left, 400, 'translates node left position by x offset')
   t.equal(state.nodes[0].top, 90, 'translates node top position by y offset')
+  t.end()
+})
+
+test('Reducers: UPDATE_CONNECTION_POSITION', t => {
+  const state = reduceActions([
+    actions.loadNodeList([dummyNodes.Number]),
+    actions.clickCanvas(0, 0, 900),
+    actions.addNode()(dummyNodes.Number.uid),
+    actions.updateConnectionPosition(1, 'output', 'value', 42, 84)
+  ])
+  t.deepEqual(state.connectionPositions, {
+    '1-output-value': { x: 42, y: 84 }
+  }, 'updates position for the given connection')
   t.end()
 })
 

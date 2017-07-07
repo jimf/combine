@@ -11,6 +11,7 @@ _Work in progress_
 ## Todo
 
 - Add svg for visually indicating connected nodes
+  - Partially done, but still needs to update on node move/delete
 - Wire up `validConnections` state to disallow connecting ports of invalid types
 - Update remove-node handling to properly update connections graph
 - Define additional nodes

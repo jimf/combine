@@ -10,6 +10,7 @@ const NodesList = ({
   nodes,
   onConnectionClick,
   onRemoveNode,
+  updateConnectionPosition,
   updateNodeState
 }) =>
   div({ className: 'nodes-list' }, [
@@ -23,7 +24,8 @@ const NodesList = ({
         onRemove: onRemoveNode,
         outputs: nodeSpec.outputs,
         style: { top, left },
-        title: nodeSpec.name
+        title: nodeSpec.name,
+        updateConnectionPosition
       }, nodeSpec.component && createElement(nodeSpec.component, {
         state,
         inputs: inputs[cid],

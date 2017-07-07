@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
   onRemoveNode: dispatch(actions.removeNode),
   onSearch: dispatch(addRule),
   updateNodeState: cid => state => store.dispatch(actions.updateNodeState(cid, state)),
+  updateConnectionPosition: dispatch(actions.updateConnectionPosition),
   win: window,
   inputs: selectors.calculateInputsSelector(state),
   validConnections: (function () {

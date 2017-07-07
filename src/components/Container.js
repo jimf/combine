@@ -3,6 +3,7 @@ const DOM = require('react-dom-factories')
 const { DropTarget } = require('react-dnd')
 const NodesList = require('./NodesList')
 const Search = require('./Search')
+const ConnectionLines = require('./ConnectionLines')
 const { AppState, nodeDragType } = require('../constants')
 const { div } = DOM
 
@@ -18,14 +19,15 @@ const collect = (connect, monitor) => ({
 })
 
 const handleContainerClick = props => e => {
-  if (e.target.classList.contains('main-container')) {
+  if (e.target.classList.contains('connection-lines')) {
     props.onCanvasClick(e.clientX, e.clientY, props.win.innerWidth)
   }
 }
 
 const Container = props =>
   props.connectDropTarget(
-    div({ className: 'main-container', onClick: handleContainerClick(props) }, [
+    div({ className: 'main-container' }, [
+      createElement(ConnectionLines, { ...props, key: 'lines', onClick: handleContainerClick(props) }),
       createElement(NodesList, { ...props, key: 'nodes-list' }),
       props.app.state === AppState.Searching && createElement(Search, {
         ...props.app,

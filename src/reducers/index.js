@@ -33,6 +33,11 @@ const initialState = () => ({
   connections: {},
 
   /**
+   * Connection x/y coordinates.
+   */
+  connectionPositions: {},
+
+  /**
    * List of nodes that have been created.
    */
   nodes: []
@@ -220,6 +225,18 @@ module.exports = (state = initialState(), action) => {
           ],
           []
         )
+      }
+
+    case actions.UPDATE_CONNECTION_POSITION:
+      return {
+        ...state,
+        connectionPositions: {
+          ...state.connectionPositions,
+          [`${action.payload.cid}-${action.payload.connectionType}-${action.payload.name}`]: {
+            x: action.payload.x,
+            y: action.payload.y
+          }
+        }
       }
 
     case actions.UPDATE_NODE_STATE:
