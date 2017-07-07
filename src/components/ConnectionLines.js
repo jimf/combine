@@ -4,7 +4,7 @@ const { svg, path } = DOM
 const { flatMap } = require('../util')
 
 const getPathDescription = (p1, p2) => {
-  const offset = Math.round(Math.abs(p2.x - p1.x) * 0.25)
+  const offset = Math.round(Math.abs(p2.x - p1.x) * 0.3)
   return 'M%d,%d C%d,%d %d,%d %d,%d'
     .replace('%d', p1.x)
     .replace('%d', p1.y)
