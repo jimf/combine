@@ -23,6 +23,8 @@ _Work in progress_
 - General cleanup
   - remove unused utils
   - clean up state tree
+  - clean up components
+  - clean up props propagation
   - additional test coverage
   - consider whether react-redux would be worth pulling in
   - consider whether RxJS/most.js would make things any more elegant
