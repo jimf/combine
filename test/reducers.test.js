@@ -163,15 +163,39 @@ test('Reducers: LOAD_NODE_LIST action', t => {
 test('Reducers: REMOVE_NODE action', t => {
   const addNode = actions.addNode()
   const state = reduceActions([
-    actions.loadNodeList([dummyNodes.True]),
+    actions.loadNodeList([dummyNodes.Number, dummyNodes.Add]),
     actions.clickCanvas(0, 0, 900),
-    addNode(dummyNodes.True.uid),
-    addNode(dummyNodes.True.uid),
+    addNode(dummyNodes.Number.uid),
+    actions.updateConnectionPosition(1, 'output', 'value', 0, 0),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.updateConnectionPosition(2, 'output', 'value', 0, 0),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Add.uid),
+    actions.updateConnectionPosition(3, 'input', 'operand1', 0, 0),
+    actions.updateConnectionPosition(3, 'input', 'operand2', 0, 0),
+    actions.updateConnectionPosition(3, 'output', 'result', 0, 0),
+    actions.clickConnection(1, 'output', 'value'),
+    actions.clickConnection(3, 'input', 'operand1'),
+    actions.clickConnection(2, 'output', 'value'),
+    actions.clickConnection(3, 'input', 'operand2'),
     actions.removeNode(1)
   ])
   t.equal(state.app.state, AppState.Ready, 'puts app in ready state')
-  t.equal(state.nodes.length, 1, 'removes a node from the node list')
-  t.ok(state.nodes[0].cid !== 1, 'removes the node with the given cid')
+  t.equal(state.nodes.length, 2, 'removes a node from the node list')
+  t.ok(state.nodes.every(node => node.cid !== 1), 'removes the node with the given cid')
+  t.deepEqual(state.connections, {
+    '2-output-value': ['3-input-operand2'],
+    '3-input-operand1': ['3-output-result'],
+    '3-input-operand2': ['3-output-result'],
+    '3-output-result': []
+  }, 'removes node connections')
+  t.deepEqual(state.connectionPositions, {
+    '2-output-value': { x: 0, y: 0 },
+    '3-input-operand1': { x: 0, y: 0 },
+    '3-input-operand2': { x: 0, y: 0 },
+    '3-output-result': { x: 0, y: 0 }
+  }, 'removes node connection positions')
   t.end()
 })
 

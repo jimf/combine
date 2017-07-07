@@ -11,7 +11,6 @@ _Work in progress_
 ## Todo
 
 - Wire up `validConnections` state to disallow connecting ports of invalid types
-- Update remove-node handling to properly update `connections` graph and `connectionPositions`
 - Define additional nodes
 - Refine node searching (search tags and aliases)
 - Add keyboard shortcuts with proximity sorting for connecting nodes

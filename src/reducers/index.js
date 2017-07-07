@@ -207,6 +207,23 @@ module.exports = (state = initialState(), action) => {
         app: {
           state: AppState.Ready
         },
+        connections: Object.keys(state.connections)
+          .filter(inputConn => !inputConn.startsWith(`${action.payload}-`))
+          .reduce(
+            (acc, inputConn) => ({
+              ...acc,
+              [inputConn]: state.connections[inputConn].filter(outputConn =>
+                !outputConn.startsWith(`${action.payload}-`)
+              )
+            }),
+            {}
+          ),
+        connectionPositions: Object.keys(state.connectionPositions)
+          .filter(conn => !conn.startsWith(`${action.payload}-`))
+          .reduce((acc, conn) => ({
+            ...acc,
+            [conn]: state.connectionPositions[conn]
+          }), {}),
         nodes: state.nodes.filter(node => node.cid !== action.payload)
       }
 
