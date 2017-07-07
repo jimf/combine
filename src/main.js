@@ -6,13 +6,13 @@ const actions = require('./actions')
 const reducer = require('./reducers')
 const selectors = require('./selectors')
 
-const store = createStore(reducer)
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 const addRule = actions.addNode()
-const dispatch = actionCreator => (...args) => {
-  const action = actionCreator(...args)
-  console.log(action)
-  return store.dispatch(action)
-}
+const dispatch = actionCreator => (...args) =>
+  store.dispatch(actionCreator(...args))
 
 const mapStateToProps = state => ({
   ...state,
