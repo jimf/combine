@@ -216,6 +216,22 @@ module.exports = (state = initialState(), action) => {
         app: {
           state: AppState.Ready
         },
+        connectionPositions: {
+          ...state.connectionPositions,
+          ...Object.keys(state.connectionPositions).reduce(
+            (acc, key) =>
+              key.startsWith(`${action.payload.cid}-`)
+                ? {
+                  ...acc,
+                  [key]: {
+                    x: state.connectionPositions[key].x + action.payload.offsetX,
+                    y: state.connectionPositions[key].y + action.payload.offsetY
+                  }
+                }
+                : acc,
+            {}
+          )
+        },
         nodes: state.nodes.reduce(
           (acc, node) => [
             ...acc,
