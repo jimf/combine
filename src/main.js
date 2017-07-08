@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
     const r = selectors.connectionModesSelector(state)
     // console.log('connModes', r)
     return r
-  })(),
+  })()
 })
 
 store.subscribe(() => {

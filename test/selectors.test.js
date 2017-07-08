@@ -64,7 +64,7 @@ test('Selectors: validConnectionsSelector', t => {
   t.deepEqual(subject.validConnectionsSelector(connectingNoValid), [],
     'returns empty list when no valid connections are available')
 
-  const connectingValid = reduceActions([
+  const connectingOutputInputValid = reduceActions([
     addNode(dummyNodes.Number.uid),
     actions.clickCanvas(0, 0, 900),
     addNode(dummyNodes.Number.uid),
@@ -74,11 +74,28 @@ test('Selectors: validConnectionsSelector', t => {
     addNode(dummyNodes.Tap.uid),
     actions.clickConnection(4, 'output', 'value')
   ], searching)
-  t.deepEqual(subject.validConnectionsSelector(connectingValid), [
-    `${connectingValid.nodes[2].cid}-operand1`,
-    `${connectingValid.nodes[2].cid}-operand2`,
-    `${connectingValid.nodes[3].cid}-value`
-  ], 'returns list of valid connections when available')
+  t.deepEqual(subject.validConnectionsSelector(connectingOutputInputValid), [
+    `${connectingOutputInputValid.nodes[2].cid}-operand1`,
+    `${connectingOutputInputValid.nodes[2].cid}-operand2`,
+    `${connectingOutputInputValid.nodes[3].cid}-value`
+  ], 'returns list of valid output-to-input connections when available')
+
+  // TODO finish writing this
+  // const connectingValid = reduceActions([
+  //   addNode(dummyNodes.Number.uid),
+  //   actions.clickCanvas(0, 0, 900),
+  //   addNode(dummyNodes.Number.uid),
+  //   actions.clickCanvas(0, 0, 900),
+  //   addNode(dummyNodes.Add.uid),
+  //   actions.clickCanvas(0, 0, 900),
+  //   addNode(dummyNodes.Tap.uid),
+  //   actions.clickConnection(4, 'output', 'value')
+  // ], searching)
+  // t.deepEqual(subject.validConnectionsSelector(connectingValid), [
+  //   `${connectingValid.nodes[2].cid}-operand1`,
+  //   `${connectingValid.nodes[2].cid}-operand2`,
+  //   `${connectingValid.nodes[3].cid}-value`
+  // ], 'returns list of valid output-to-input connections when available')
 
   t.end()
 })

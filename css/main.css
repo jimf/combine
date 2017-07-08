@@ -105,6 +105,7 @@ body {
     background-color: #aaa;
     border: none;
     border-radius: 50%;
+    cursor: pointer;
     height: 14px;
     margin-top: 5px;
     position: absolute;
@@ -124,6 +125,9 @@ body {
 }
 .connector.is-valid {
     background-color: yellow;
+}
+.connector.is-invalid {
+    cursor: not-allowed;
 }
 
 .connection-lines {

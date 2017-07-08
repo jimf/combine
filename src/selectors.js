@@ -38,7 +38,7 @@ exports.validConnectionsSelector = createSelector(
       return []
     }
 
-    const connecting = app.state.connectionType === 'input' ? 'inputs' : 'outputs'
+    const connecting = app.connectionType === 'input' ? 'inputs' : 'outputs'
     const other = connecting === 'inputs' ? 'outputs' : 'inputs'
 
     return flatMap(
@@ -130,4 +130,3 @@ exports.connectionModesSelector = createSelector(
         return { ...acc, [conn]: mode }
       }, {})
 )
-
