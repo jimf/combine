@@ -4,13 +4,13 @@ const PropTypes = require('prop-types')
 const Connection = require('./Connection')
 const { div, li, ul } = DOM
 
-const NodeContent = ({ children, cid, inputs, onConnectionClick, outputs, updateConnectionPosition }) =>
+const NodeContent = ({ children, cid, connectionModes, inputs, onConnectionClick, outputs, updateConnectionPosition }) =>
   div({ className: 'node__content card-content' }, [
     div({ key: 't', className: 'level' }, [
       div({ key: 'l', className: 'level-left' },
         ul({ className: 'node-inputs' }, Object.keys(inputs).map((key, idx) =>
           li({ key: idx }, [
-            createElement(Connection, { key: `li${idx}btn`, onClick: onConnectionClick, cid, type: 'input', name: inputs[key].name, updatePosition: updateConnectionPosition }),
+            createElement(Connection, { key: `li${idx}btn`, onClick: onConnectionClick, cid, type: 'input', name: inputs[key].name, updatePosition: updateConnectionPosition, mode: connectionModes[`${cid}-input-${inputs[key].name}`] }),
             `${inputs[key].name}:${inputs[key].type}`
           ])
         ))
@@ -19,7 +19,7 @@ const NodeContent = ({ children, cid, inputs, onConnectionClick, outputs, update
         ul({ className: 'node-outputs' }, Object.keys(outputs).map((key, idx) =>
           li({ key: idx }, [
             `${outputs[key].name}:${outputs[key].type}`,
-            createElement(Connection, { key: `li${idx}btn`, onClick: onConnectionClick, cid, type: 'output', name: outputs[key].name, updatePosition: updateConnectionPosition })
+            createElement(Connection, { key: `li${idx}btn`, onClick: onConnectionClick, cid, type: 'output', name: outputs[key].name, updatePosition: updateConnectionPosition, mode: connectionModes[`${cid}-output-${outputs[key].name}`] })
           ])
         ))
       )
@@ -28,7 +28,7 @@ const NodeContent = ({ children, cid, inputs, onConnectionClick, outputs, update
   ])
 
 NodeContent.propTypes = {
-  cid: PropTypes.number.isRequired,
+  connectionModes: PropTypes.object.isRequired,
   inputs: PropTypes.object.isRequired,
   onConnectionClick: PropTypes.func.isRequired,
   outputs: PropTypes.object.isRequired,

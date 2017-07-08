@@ -1,6 +1,8 @@
 const { Component } = require('react')
 const DOM = require('react-dom-factories')
 const PropTypes = require('prop-types')
+const cx = require('classnames')
+const { ConnectionState } = require('../constants')
 const { button, span } = DOM
 
 class Connection extends Component {
@@ -32,8 +34,20 @@ class Connection extends Component {
   }
 
   render () {
-    const { type, name } = this.props
-    return button({ className: `connector ${type}-connector`, onClick: this.handleClick, ref: this.setButton },
+    const { type, name, mode } = this.props
+    const className = cx(
+      'connector',
+      `${type}-connector`,
+      mode === ConnectionState.Connecting && 'is-connecting',
+      mode === ConnectionState.Connected && 'is-connected',
+      mode === ConnectionState.Valid && 'is-valid',
+      mode === ConnectionState.Invalid && 'is-invalid'
+    )
+    const disabled = [
+      ConnectionState.Connected,
+      ConnectionState.Invalid
+    ].includes(mode)
+    return button({ className, disabled, onClick: this.handleClick, ref: this.setButton },
       span({ className: 'visually-hidden' }, name)
     )
   }
@@ -42,6 +56,7 @@ class Connection extends Component {
 Connection.propTypes = {
   cid: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  mode: PropTypes.oneOf(Object.keys(ConnectionState).map(key => ConnectionState[key])).isRequired,
   type: PropTypes.oneOf(['input', 'output']).isRequired,
   onClick: PropTypes.func.isRequired,
   updatePosition: PropTypes.func.isRequired

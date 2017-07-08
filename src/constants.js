@@ -4,6 +4,14 @@ exports.AppState = {
   Connecting: 'connecting'
 }
 
+exports.ConnectionState = {
+  Ready: 'ready',
+  Connecting: 'connecting',
+  Connected: 'connected',
+  Valid: 'valid',
+  Invalid: 'invalid'
+}
+
 exports.nodeDragType = 'node'
 
 exports.nodeTypes = {

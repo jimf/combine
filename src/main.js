@@ -25,11 +25,11 @@ const mapStateToProps = state => ({
   updateConnectionPosition: dispatch(actions.updateConnectionPosition),
   win: window,
   inputs: selectors.calculateInputsSelector(state),
-  validConnections: (function () {
-    const r = selectors.validConnectionsSelector(state)
-    // console.log(r)
+  connectionModes: (function () {
+    const r = selectors.connectionModesSelector(state)
+    // console.log('connModes', r)
     return r
-  })()
+  })(),
 })
 
 store.subscribe(() => {

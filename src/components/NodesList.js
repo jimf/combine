@@ -6,6 +6,7 @@ const { div } = DOM
 
 const NodesList = ({
   availableNodes,
+  connectionModes,
   inputs,
   nodes,
   onConnectionClick,
@@ -18,6 +19,7 @@ const NodesList = ({
       const nodeSpec = availableNodes.index[uid]
       return createElement(NodeContainer, {
         cid,
+        connectionModes,
         inputs: nodeSpec.inputs,
         key: cid,
         onConnectionClick: onConnectionClick,

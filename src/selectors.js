@@ -1,5 +1,5 @@
 const { createSelector } = require('reselect')
-const { AppState, nodeTypes } = require('./constants')
+const { AppState, ConnectionState, nodeTypes } = require('./constants')
 const { findWhere, flatMap, tsort } = require('./util')
 
 const isValidTypePair = (t1, t2) =>
@@ -50,7 +50,7 @@ exports.validConnectionsSelector = createSelector(
               availableNodesIndex[node.uid][other][name].type
             )
           })
-          .map(name => `${node.cid}-${name}`)
+          .map(name => `${node.cid}-${other.slice(0, -1)}-${name}`)
       ),
       nodes.filter(node => node.cid !== app.cid)
     )
@@ -97,3 +97,37 @@ exports.calculateInputsSelector = createSelector(
     return result.inputs
   }
 )
+
+exports.connectionModesSelector = createSelector(
+  appSelector,
+  connectionsSelector,
+  inverseConnectionsSelector,
+  exports.validConnectionsSelector,
+  (app, connections, inverseConnections, validConnections) =>
+    Object.keys(connections)
+      .reduce((acc, conn) => {
+        let [cid, type, name] = parseConnection(conn)
+        let mode = ConnectionState.Ready
+
+        if (type === 'output' && connections[conn].length) {
+          mode = ConnectionState.Connected
+        } else if (type === 'input' && inverseConnections[conn]) {
+          mode = ConnectionState.Connected
+        }
+
+        if (app.state === AppState.Connecting) {
+          if (validConnections.includes(conn)) {
+            mode = ConnectionState.Valid
+          } else {
+            mode = ConnectionState.Invalid
+          }
+
+          if (app.cid === cid && app.connectionType === type && app.name === name) {
+            mode = ConnectionState.Connecting
+          }
+        }
+
+        return { ...acc, [conn]: mode }
+      }, {})
+)
+

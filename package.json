@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "bulma": "^0.4.2",
+    "classnames": "^2.2.5",
     "react": "^15.6.1",
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",

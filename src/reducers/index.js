@@ -160,6 +160,15 @@ module.exports = (state = initialState(), action) => {
             ? state.app : action.payload
           const key = `${from.cid}-${from.connectionType}-${from.name}`
 
+          if (from.cid === to.cid) {
+            return {
+              ...state,
+              app: {
+                state: AppState.Ready
+              }
+            }
+          }
+
           return {
             ...state,
             app: {

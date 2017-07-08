@@ -19,22 +19,11 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging()
 })
 
-const NodeContainer = ({
-  children,
-  cid,
-  connectDragSource,
-  inputs,
-  onConnectionClick,
-  onRemove,
-  outputs,
-  style,
-  title,
-  updateConnectionPosition
-}) =>
-  connectDragSource(
-    div({ className: 'node card', style }, [
-      createElement(NodeHeader, { key: 'h', cid, onRemove, title }),
-      createElement(NodeContent, { key: 'c', cid, inputs, onConnectionClick, outputs, updateConnectionPosition }, children)
+const NodeContainer = (props) =>
+  props.connectDragSource(
+    div({ className: 'node card', style: props.style }, [
+      createElement(NodeHeader, { ...props, key: 'h' }),
+      createElement(NodeContent, { ...props, key: 'c' }, props.children)
     ])
   )
 

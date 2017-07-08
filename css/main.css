@@ -102,17 +102,28 @@ body {
 }
 
 .connector {
-    position: absolute;
+    background-color: #aaa;
+    border: none;
+    border-radius: 50%;
+    height: 14px;
     margin-top: 5px;
+    position: absolute;
+    width: 14px;
 }
 .input-connector {
-    left: 0;
+    left: -7px;
 }
 .output-connector {
-    right: 0;
+    right: -7px;
+}
+.connector.is-connecting {
+    background-color: blue;
 }
 .connector.is-connected {
     background-color: green;
+}
+.connector.is-valid {
+    background-color: yellow;
 }
 
 .connection-lines {
