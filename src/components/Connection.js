@@ -43,10 +43,10 @@ class Connection extends Component {
       mode === ConnectionState.Valid && 'is-valid',
       mode === ConnectionState.Invalid && 'is-invalid'
     )
-    const disabled = [
-      ConnectionState.Connected,
-      ConnectionState.Invalid
-    ].includes(mode)
+    const disabled = Boolean(
+      mode === ConnectionState.Invalid ||
+      (type === 'input' && mode === ConnectionState.Connected)
+    )
     return button({ className, disabled, onClick: this.handleClick, ref: this.setButton },
       span({ className: 'visually-hidden' }, name)
     )
