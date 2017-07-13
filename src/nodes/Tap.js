@@ -33,7 +33,7 @@ module.exports = {
   name: 'Tap',
   aliases: [],
   tags: [],
-  implementation: (state, inputs) => inputs,
+  implementation: (state, inputs) => inputs.value,
   component: TapComponent,
   state: {},
   inputs: {
