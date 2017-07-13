@@ -10,7 +10,7 @@ _Work in progress_
 
 ## Todo
 
-- Wire up `validConnections` state to disallow connecting ports of invalid types
+- Fix connection state so that connected/invalid ports can remain green
 - Define additional nodes
 - Refine node searching (search tags and aliases)
 - Add keyboard shortcuts with proximity sorting for connecting nodes
