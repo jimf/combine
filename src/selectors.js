@@ -28,35 +28,6 @@ exports.connectingNodeSpecSelector = createSelector(
   }
 )
 
-exports.validConnectionsSelector = createSelector(
-  appSelector,
-  availableNodesIndexSelector,
-  nodesSelector,
-  exports.connectingNodeSpecSelector,
-  (app, availableNodesIndex, nodes, connectingNodeSpec) => {
-    if (app.state !== AppState.Connecting) {
-      return []
-    }
-
-    const connecting = app.connectionType === 'input' ? 'inputs' : 'outputs'
-    const other = connecting === 'inputs' ? 'outputs' : 'inputs'
-
-    return flatMap(
-      node => (
-        Object.keys(availableNodesIndex[node.uid][other])
-          .filter(name => {
-            return isValidTypePair(
-              connectingNodeSpec[connecting][app.name].type,
-              availableNodesIndex[node.uid][other][name].type
-            )
-          })
-          .map(name => `${node.cid}-${other.slice(0, -1)}-${name}`)
-      ),
-      nodes.filter(node => node.cid !== app.cid)
-    )
-  }
-)
-
 const inverseConnectionsSelector = createSelector(
   connectionsSelector,
   (connections) => {
@@ -67,6 +38,38 @@ const inverseConnectionsSelector = createSelector(
       })
       return acc
     }, {})
+  }
+)
+
+exports.validConnectionsSelector = createSelector(
+  appSelector,
+  availableNodesIndexSelector,
+  nodesSelector,
+  exports.connectingNodeSpecSelector,
+  inverseConnectionsSelector,
+  (app, availableNodesIndex, nodes, connectingNodeSpec, inverseConnections) => {
+    if (app.state !== AppState.Connecting) {
+      return []
+    }
+
+    const connecting = app.connectionType === 'input' ? 'inputs' : 'outputs'
+    const other = connecting === 'inputs' ? 'outputs' : 'inputs'
+
+    return flatMap(
+      node => (
+        Object.keys(availableNodesIndex[node.uid][other])
+          .filter(name =>
+            isValidTypePair(
+              connectingNodeSpec[connecting][app.name].type,
+              availableNodesIndex[node.uid][other][name].type
+            ) && !(
+              other === 'inputs' && inverseConnections[`${node.cid}-${other.slice(0, -1)}-${name}`]
+            )
+          )
+          .map(name => `${node.cid}-${other.slice(0, -1)}-${name}`)
+      ),
+      nodes.filter(node => node.cid !== app.cid)
+    )
   }
 )
 

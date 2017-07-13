@@ -92,6 +92,17 @@ test('Selectors: validConnectionsSelector', t => {
     `${connectingInputOutputValid.nodes[3].cid}-output-value`
   ], 'returns list of valid input-to-output connections when available')
 
+  const inputsConnected = reduceActions([
+    actions.clickConnection(4, 'output', 'value'),
+    actions.clickConnection(6, 'input', 'operand1'),
+    actions.clickConnection(5, 'output', 'value'),
+    actions.clickConnection(6, 'input', 'operand2'),
+    actions.clickConnection(5, 'output', 'value')
+  ], numNumAddTap)
+  t.deepEqual(subject.validConnectionsSelector(inputsConnected), [
+    `${connectingInputOutputValid.nodes[3].cid}-input-value`
+  ], 'excludes connected inputs')
+
   t.end()
 })
 
