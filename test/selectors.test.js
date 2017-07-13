@@ -75,27 +75,26 @@ test('Selectors: validConnectionsSelector', t => {
     actions.clickConnection(4, 'output', 'value')
   ], searching)
   t.deepEqual(subject.validConnectionsSelector(connectingOutputInputValid), [
-    `${connectingOutputInputValid.nodes[2].cid}-operand1`,
-    `${connectingOutputInputValid.nodes[2].cid}-operand2`,
-    `${connectingOutputInputValid.nodes[3].cid}-value`
+    `${connectingOutputInputValid.nodes[2].cid}-input-operand1`,
+    `${connectingOutputInputValid.nodes[2].cid}-input-operand2`,
+    `${connectingOutputInputValid.nodes[3].cid}-input-value`
   ], 'returns list of valid output-to-input connections when available')
 
-  // TODO finish writing this
-  // const connectingValid = reduceActions([
-  //   addNode(dummyNodes.Number.uid),
-  //   actions.clickCanvas(0, 0, 900),
-  //   addNode(dummyNodes.Number.uid),
-  //   actions.clickCanvas(0, 0, 900),
-  //   addNode(dummyNodes.Add.uid),
-  //   actions.clickCanvas(0, 0, 900),
-  //   addNode(dummyNodes.Tap.uid),
-  //   actions.clickConnection(4, 'output', 'value')
-  // ], searching)
-  // t.deepEqual(subject.validConnectionsSelector(connectingValid), [
-  //   `${connectingValid.nodes[2].cid}-operand1`,
-  //   `${connectingValid.nodes[2].cid}-operand2`,
-  //   `${connectingValid.nodes[3].cid}-value`
-  // ], 'returns list of valid output-to-input connections when available')
+  const connectingInputOutputValid = reduceActions([
+    addNode(dummyNodes.Number.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Add.uid),
+    actions.clickCanvas(0, 0, 900),
+    addNode(dummyNodes.Tap.uid),
+    actions.clickConnection(10, 'input', 'operand1')
+  ], searching)
+  t.deepEqual(subject.validConnectionsSelector(connectingInputOutputValid), [
+    `${connectingInputOutputValid.nodes[0].cid}-output-value`,
+    `${connectingInputOutputValid.nodes[1].cid}-output-value`,
+    `${connectingInputOutputValid.nodes[3].cid}-output-value`
+  ], 'returns list of valid input-to-output connections when available')
 
   t.end()
 })
