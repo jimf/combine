@@ -24,7 +24,7 @@ class DisplayLargeComponent extends Component {
         break
 
       default:
-        rendered = JSON.stringify(value, true, 2)
+        rendered = typeof value === 'string' ? value : JSON.stringify(value, true, 2)
         break
     }
 
