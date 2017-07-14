@@ -10,21 +10,10 @@ class ParseJsonComponent extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   handleChange (e) {
-    const json = e.target.value
-
-    try {
-      this.props.updateState({
-        ...this.props.state,
-        json,
-        value: JSON.parse(json)
-      })
-    } catch (e) {
-      this.props.updateState({
-        ...this.props.state,
-        json,
-        value: {}
-      })
-    }
+    this.props.updateState({
+      ...this.props.state,
+      json: e.target.value
+    })
   }
   render () {
     const { json } = this.props.state
@@ -45,11 +34,16 @@ module.exports = {
   name: 'Parse JSON',
   aliases: [],
   tags: ['parse'],
-  implementation: (state) => state.value,
+  implementation: (state) => {
+    try {
+      return JSON.parse(state.json)
+    } catch (e) {
+      return {}
+    }
+  },
   component: ParseJsonComponent,
   state: {
-    json: '{}',
-    value: {}
+    json: '{}'
   },
   inputs: {},
   outputs: {
