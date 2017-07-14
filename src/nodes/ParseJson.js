@@ -42,7 +42,7 @@ class ParseJsonComponent extends Component {
 ParseJsonComponent.propTypes = nodePropTypes
 
 module.exports = {
-  name: 'ParseJson',
+  name: 'Parse JSON',
   aliases: [],
   tags: ['parse'],
   implementation: (state) => state.value,

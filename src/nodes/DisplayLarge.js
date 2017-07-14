@@ -35,7 +35,7 @@ class DisplayLargeComponent extends Component {
 DisplayLargeComponent.propTypes = nodePropTypes
 
 module.exports = {
-  name: 'DisplayLarge',
+  name: 'Display Large',
   aliases: [],
   tags: [],
   implementation: (state, inputs) => inputs.value,
