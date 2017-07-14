@@ -18,7 +18,8 @@ exports.nodeTypes = {
   Any: 'Any',
   Boolean: 'Boolean',
   Number: 'Number',
-  Object: 'Object'
+  Object: 'Object',
+  String: 'String'
 }
 
 exports.SEARCH_WIDTH = 400
