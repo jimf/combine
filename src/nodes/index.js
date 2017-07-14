@@ -5,6 +5,7 @@ exports.list = [
   require('./ExtractString'),
   require('./Fetch'),
   require('./Number'),
+  require('./ParseCsv'),
   require('./ParseJson'),
   require('./Tap')
 ]
