@@ -1,5 +1,6 @@
 exports.list = [
   require('./Add'),
+  require('./BarChart'),
   require('./DisplayLarge'),
   require('./ExtractNumber'),
   require('./ExtractString'),
