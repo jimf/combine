@@ -3,6 +3,7 @@ exports.list = [
   require('./DisplayLarge'),
   require('./ExtractNumber'),
   require('./ExtractString'),
+  require('./EvalJavaScript'),
   require('./Fetch'),
   require('./IntervalSeries'),
   require('./Number'),
