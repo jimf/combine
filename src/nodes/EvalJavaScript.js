@@ -46,7 +46,7 @@ module.exports = {
       const fn = new Function('a', 'b', 'c', 'd', 'e', `'use strict';\n\n${state.input}`)
       return fn(inputs.a, inputs.b, inputs.c, inputs.d, inputs.e)
     } catch (err) {
-      return
+      /* do nothing */
     }
   },
   component: EvalJavaScriptComponent,
