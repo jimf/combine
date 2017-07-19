@@ -17,8 +17,6 @@ _Work in progress_
 - Refine node searching (search tags and aliases)
 - Add keyboard shortcuts with proximity sorting for connecting nodes
 - Refine type system, figure out how best to handle unsafe effects
-- Add ability to "select" multiple nodes at once
-  - (Unclear in video what this does. Bulk drag-n-drop?)
 - Improve styles
 - General cleanup
   - remove unused utils

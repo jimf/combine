@@ -1,7 +1,8 @@
 exports.AppState = {
   Ready: 'ready',
   Searching: 'searching',
-  Connecting: 'connecting'
+  Connecting: 'connecting',
+  Dragging: 'dragging'
 }
 
 exports.ConnectionState = {

@@ -47,6 +47,18 @@ test('Actions: CLICK_CONNECTION', t => {
   t.end()
 })
 
+test('Actions: DRAG_CANVAS', t => {
+  t.equal(subject.DRAG_CANVAS, 'DRAG_CANVAS', 'type defined')
+  t.deepEqual(subject.dragCanvas(10, 20), {
+    type: subject.DRAG_CANVAS,
+    payload: {
+      offsetX: 10,
+      offsetY: 20
+    }
+  }, 'action creator defined')
+  t.end()
+})
+
 test('Actions: LOAD_NODE_LIST', t => {
   t.equal(subject.LOAD_NODE_LIST, 'LOAD_NODE_LIST', 'type defined')
   t.deepEqual(subject.loadNodeList([]), {

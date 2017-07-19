@@ -44,6 +44,17 @@ exports.clickConnection = (cid, connectionType, name) => ({
 })
 
 /**
+ * Drag the canvas around, for the purposes of moving all nodes at once.
+ *
+ * @summary (OffsetX -> OffsetY) -> Action
+ */
+exports.DRAG_CANVAS = 'DRAG_CANVAS'
+exports.dragCanvas = (offsetX, offsetY) => ({
+  type: exports.DRAG_CANVAS,
+  payload: { offsetX, offsetY }
+})
+
+/**
  * Register a list of node specs with the application.
  *
  * @summary Array NodeSpec -> Action
@@ -63,6 +74,17 @@ exports.REMOVE_NODE = 'REMOVE_NODE'
 exports.removeNode = payload => ({
   type: exports.REMOVE_NODE,
   payload
+})
+
+/**
+ * Translate current x/y position of all node instances by given x/y offsets.
+ *
+ * @summary (OffsetX -> OffsetY) -> Action
+ */
+exports.TRANSLATE_ALL_NODES = 'TRANSLATE_ALL_NODES'
+exports.translateAllNodes = (offsetX, offsetY) => ({
+  type: exports.TRANSLATE_ALL_NODES,
+  payload: { offsetX, offsetY }
 })
 
 /**

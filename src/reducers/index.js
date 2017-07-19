@@ -189,6 +189,16 @@ module.exports = (state = initialState(), action) => {
       }
     }
 
+    case actions.DRAG_CANVAS:
+      return {
+        ...state,
+        app: {
+          state: AppState.Dragging,
+          offsetX: action.payload.offsetX,
+          offsetY: action.payload.offsetY
+        }
+      }
+
     case actions.LOAD_NODE_LIST: {
       const [uids, index] = action.payload.reduce(
         (acc, node) => [
@@ -234,6 +244,35 @@ module.exports = (state = initialState(), action) => {
             [conn]: state.connectionPositions[conn]
           }), {}),
         nodes: state.nodes.filter(node => node.cid !== action.payload)
+      }
+
+    case actions.TRANSLATE_ALL_NODES:
+      return {
+        ...state,
+        app: {
+          state: AppState.Ready
+        },
+        connectionPositions: Object.keys(state.connectionPositions).reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: {
+              x: state.connectionPositions[key].x + action.payload.offsetX,
+              y: state.connectionPositions[key].y + action.payload.offsetY
+            }
+          }),
+          {}
+        ),
+        nodes: state.nodes.reduce(
+          (acc, node) => [
+            ...acc,
+            {
+              ...node,
+              left: node.left + action.payload.offsetX,
+              top: node.top + action.payload.offsetY
+            }
+          ],
+          []
+        )
       }
 
     case actions.TRANSLATE_NODE:

@@ -147,6 +147,18 @@ test('Reducers: CLICK_CONNECTION', t => {
   t.end()
 })
 
+test('Reducers: DRAG_CANVAS action', t => {
+  const state = reduceActions([
+    actions.dragCanvas(10, 20)
+  ])
+  t.deepEqual(state.app, {
+    state: AppState.Dragging,
+    offsetX: 10,
+    offsetY: 20
+  }, 'enters app dragging state')
+  t.end()
+})
+
 test('Reducers: LOAD_NODE_LIST action', t => {
   const state = reduceActions([
     actions.loadNodeList([dummyNodes.True])
@@ -196,6 +208,47 @@ test('Reducers: REMOVE_NODE action', t => {
     '3-input-operand2': { x: 0, y: 0 },
     '3-output-result': { x: 0, y: 0 }
   }, 'removes node connection positions')
+  t.end()
+})
+
+test('Reducers: TRANSLATE_ALL_NODES action', t => {
+  const addNode = actions.addNode()
+  const initialState = reduceActions([
+    actions.loadNodeList([dummyNodes.Number]),
+    actions.clickCanvas(200, 200, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.updateConnectionPosition(1, 'output', 'value', 250, 250),
+    actions.clickCanvas(400, 400, 900),
+    addNode(dummyNodes.Number.uid),
+    actions.updateConnectionPosition(2, 'output', 'value', 450, 450),
+    actions.dragCanvas(0, 0)
+  ])
+  const state = reduceActions([
+    actions.translateAllNodes(100, 200)
+  ], initialState)
+  t.deepEqual(state.app, { state: AppState.Ready }, 'enters ready state')
+  t.deepEqual(state.nodes, [
+    {
+      ...initialState.nodes[0],
+      left: initialState.nodes[0].left + 100,
+      top: initialState.nodes[0].top + 200
+    },
+    {
+      ...initialState.nodes[1],
+      left: initialState.nodes[1].left + 100,
+      top: initialState.nodes[1].top + 200
+    }
+  ], 'translates position of all nodes')
+  t.deepEqual(state.connectionPositions, {
+    '1-output-value': {
+      x: initialState.connectionPositions['1-output-value'].x + 100,
+      y: initialState.connectionPositions['1-output-value'].y + 200
+    },
+    '2-output-value': {
+      x: initialState.connectionPositions['2-output-value'].x + 100,
+      y: initialState.connectionPositions['2-output-value'].y + 200
+    }
+  }, 'translates connection positions of all nodes')
   t.end()
 })
 

@@ -17,6 +17,8 @@ const dispatch = actionCreator => (...args) =>
 const mapStateToProps = state => ({
   ...state,
   onCanvasClick: dispatch(actions.clickCanvas),
+  onCanvasDrag: dispatch(actions.dragCanvas),
+  onCanvasDragEnd: dispatch(actions.translateAllNodes),
   onConnectionClick: dispatch(actions.clickConnection),
   onMoveNode: dispatch(actions.translateNode),
   onRemoveNode: dispatch(actions.removeNode),

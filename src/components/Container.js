@@ -24,10 +24,16 @@ const handleContainerClick = props => e => {
   }
 }
 
+const getStyles = props => (
+  props.app.state === AppState.Dragging
+    ? { transform: `translate(${props.app.offsetX}px, ${props.app.offsetY}px)` }
+    : null
+)
+
 const Container = props =>
   props.connectDropTarget(
-    div({ className: 'main-container' }, [
-      createElement(ConnectionLines, { ...props, key: 'lines', onClick: handleContainerClick(props) }),
+    div({ className: 'main-container', style: getStyles(props) }, [
+      createElement(ConnectionLines, { ...props, key: 'lines', onClick: handleContainerClick(props), onDrag: props.onCanvasDrag, onDragEnd: props.onCanvasDragEnd }),
       createElement(NodesList, { ...props, key: 'nodes-list' }),
       props.app.state === AppState.Searching && createElement(Search, {
         ...props.app,
