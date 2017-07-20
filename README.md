@@ -10,7 +10,6 @@ _Work in progress_
 
 ## Todo
 
-- Fix connection state so that connected/invalid ports can remain green
 - Refine node connection validity for Any type sources
   - i.e., when piping through Any ports, the original type should be known
 - Define additional nodes
