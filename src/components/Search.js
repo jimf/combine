@@ -16,10 +16,20 @@ const Search = ({
     createElement(Select, {
       autofocus: true,
       onChange: (option) => option && onSearch(option.value),
+      filterOptions: (options, filterValue, excludeOptions, props) => {
+        filterValue = filterValue.toLowerCase()
+        return options.filter(option =>
+          option.label.toLowerCase().includes(filterValue) ||
+          option.tags.some(tag => tag.toLowerCase().includes(filterValue)) ||
+          option.aliases.some(alias => alias.toLowerCase().includes(filterValue))
+        )
+      },
       openAfterFocus: true,
       options: items.map((item, idx) => ({
         label: item.name,
-        value: item.uid
+        value: item.uid,
+        tags: item.tags,
+        aliases: item.aliases
       })),
       placeholder: 'Search',
       value: searchValue
