@@ -16,7 +16,6 @@ _Work in progress_
 - Sort node fuzzy search by relevancy
 - Add keyboard shortcuts with proximity sorting for connecting nodes
 - Refine type system, figure out how best to handle unsafe effects
-- Improve styles
 - General cleanup
   - remove unused utils
   - clean up state tree

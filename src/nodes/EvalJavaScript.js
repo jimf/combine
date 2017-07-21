@@ -27,7 +27,7 @@ class EvalJavaScriptComponent extends Component {
       label({ className: 'label' }, [
         'code',
         div({ className: 'control', key: 'i' },
-          textarea({ className: 'textarea is-small', onChange: this.handleChange, value: input, styles: textareaStyles })
+          textarea({ className: 'textarea is-small', onChange: this.handleChange, value: input, style: textareaStyles })
         )
       ])
     )

@@ -23,7 +23,7 @@ class TapComponent extends Component {
         break
     }
 
-    return pre(null, `value = ${rendered}`)
+    return pre({ className: 'pre' }, `value = ${rendered}`)
   }
 }
 

@@ -7,13 +7,14 @@
 }
 
 html {
-    background-color: #43494D;
+    background-color: #000;
     height: 100%;
     text-align: center;
 }
 
 body {
-    color: #fff;
+    color: rgb(143, 193, 205);
+    font-family: Jura;
     min-height: 100%;
 }
 
@@ -32,9 +33,10 @@ body {
 }
 
 .node {
-    background-color: #4A4D53;
-    box-shadow: 0 10px 6px -6px #333;
-    color: #fff;
+    background-color: rgb(17, 29, 38);
+    border: 2px solid rgb(54, 82, 101);
+    border-radius: 8px;
+    color: rgb(143, 193, 205);
     min-width: 300px;
     position: absolute;
     text-align: left;
@@ -45,18 +47,18 @@ body {
 }
 
 .node-name {
-    color: #fff;
+    color: rgb(143, 193, 205);
 }
 
 .node .node-action-button {
     background-color: transparent;
     border: none;
     margin: 0.75rem 0;
-    color: #999;
+    color: rgb(143, 193, 205);
 }
 
 .search {
-    box-shadow: 0 10px 6px -6px #333;
+    border: 2px solid rgb(54, 82, 101);
     padding: 0;
     position: absolute;
 }
@@ -70,58 +72,69 @@ body {
 }
 
 .Select-control {
-    background-color: #3C3E3B;
+    background-color: rgb(17, 29, 38);
     border: none;
 }
 
 .Select-control input {
-    color: #eee !important;
+    color: rgb(143, 193, 205) !important;
 }
 
 .is-open .Select-control {
-    background-color: #3C3E3B;
+    background-color: rgb(17, 29, 38);
 }
 
 .Select-option {
-    background-color: #3C3E3B;
-    border-top: 1px solid #4A4B48;
-    color: #eee !important;
+    background-color: rgb(17, 29, 38);
+    border-top: 1px solid rgb(54, 82, 101);
+    color: rgb(143, 193, 205);
     margin-top: -1px;
 }
 .Select-option.is-focused {
-    background-color: #474846;
+    background-color: rgb(143, 193, 205);
+    color: rgb(17, 29, 38);
 }
 
 .Select-menu-outer {
-    background-color: #3C3E3B;
+    background-color: rgb(17, 29, 38);
     border: none;
 }
 
+.Select-clear-zone:hover {
+    color: rgb(212, 20, 90);
+}
+
 .label {
-    color: #eee;
+    color: rgb(143, 193, 205);
 }
 
 .connector {
-    background-color: #aaa;
+    background-color: #000;
     border: none;
     border-radius: 50%;
     cursor: pointer;
     height: 14px;
     margin-top: 5px;
     position: absolute;
+    transition: background-color .25s;
     width: 14px;
 }
 .input-connector {
+    box-shadow: rgb(212, 20, 90) 0px 0px 0px 2px inset;
     left: -7px;
 }
 .output-connector {
+    box-shadow: rgb(0, 133, 222) 0px 0px 0px 2px inset;
     right: -7px;
 }
 .connector.is-connecting {
     background-color: blue;
 }
-.connector.is-connected {
-    background-color: green;
+.input-connector.is-connected {
+    background-color: rgb(212, 20, 90);
+}
+.output-connector.is-connected {
+    background-color: rgb(0, 133, 222);
 }
 .connector.is-valid {
     background-color: yellow;
@@ -139,7 +152,36 @@ body {
 }
 
 .connection-lines path {
-    stroke: #666;
+    stroke: rgb(0, 133, 222);
     stroke-width: 3px;
     fill: none;
+}
+
+.input, .textarea {
+    background-color: #000;
+    border: 2px solid rgb(54, 82, 101);
+    color: rgb(143, 193, 205);
+}
+.input:hover, .textarea:hover {
+    border-color: rgb(54, 82, 101);
+}
+.input:focus, .textarea:focus {
+    border-color: rgb(59, 125, 140);
+}
+.box {
+    background-color: #000;
+}
+.pre {
+    background-color: rgb(17, 29, 38);
+    color: rgb(143, 193, 205);
+    font-family: Jura
+}
+
+.ct-series-a .ct-bar,
+.ct-series-a .ct-line,
+.ct-series-a .ct-point {
+  stroke: rgb(212, 20, 90);
+}
+.ct-label {
+  color: rgb(143, 193, 205);
 }
