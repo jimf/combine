@@ -1,4 +1,4 @@
-const { createElement } = require('react')
+const { Component, createElement } = require('react')
 const PropTypes = require('react-proptypes')
 const DOM = require('react-dom-factories')
 const { DragSource } = require('react-dnd')
@@ -19,13 +19,30 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging()
 })
 
-const NodeContainer = (props) =>
-  props.connectDragSource(
-    div({ className: 'node card', style: props.style }, [
-      createElement(NodeHeader, { ...props, key: 'h' }),
-      createElement(NodeContent, { ...props, key: 'c' }, props.children)
-    ])
-  )
+class NodeContainer extends Component {
+  constructor () {
+    super()
+    this.handleMouseOver = this.handleMouseOver.bind(this)
+    this.state = { isDraggable: true }
+  }
+  handleMouseOver (e) {
+    this.setState({
+      isDraggable: e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'INPUT'
+    })
+  }
+  render () {
+    const props = this.props
+    const rendering = (
+      div({ className: 'node card', style: props.style, onMouseOver: this.handleMouseOver }, [
+        createElement(NodeHeader, { ...props, key: 'h' }),
+        createElement(NodeContent, { ...props, key: 'c' }, props.children)
+      ])
+    )
+    return this.state.isDraggable
+      ? props.connectDragSource(rendering)
+      : rendering
+  }
+}
 
 NodeContainer.propTypes = {
   style: PropTypes.object
