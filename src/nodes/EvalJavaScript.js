@@ -5,8 +5,8 @@ const { nodeTypes } = require('../constants')
 const { div, label, textarea } = DOM
 
 const textareaStyles = {
-  'font-family': 'monospace',
-  'white-space': 'nowrap',
+  fontFamily: 'monospace',
+  whiteSpace: 'nowrap',
   overflow: 'auto'
 }
 
