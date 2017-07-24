@@ -13,6 +13,10 @@ const aggregates = {
     concat: (x, y) => x * y,
     empty: 1
   },
+  Count: {
+    concat: (x, _) => x + 1,
+    empty: 0
+  },
   Any: {
     concat: (x, y) => x || y,
     empty: false
