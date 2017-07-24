@@ -17,6 +17,7 @@ exports.nodeDragType = 'node'
 
 exports.nodeTypes = {
   Any: 'Any',
+  ArrayAny: 'Array Any',
   ArrayArrayString: 'Array Array String',
   Boolean: 'Boolean',
   Number: 'Number',
