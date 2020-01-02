@@ -1,6 +1,6 @@
 const { createElement } = require('react')
 const DOM = require('react-dom-factories')
-const Select = require('react-select')
+const Select = require('react-select').default
 const PropTypes = require('prop-types')
 const { div } = DOM
 
@@ -14,7 +14,7 @@ const Search = ({
 }) =>
   div({ className: 'search box', style: { left, top, width } },
     createElement(Select, {
-      autofocus: true,
+      autoFocus: true,
       onChange: (option) => option && onSearch(option.value),
       filterOptions: (options, filterValue, excludeOptions, props) => {
         filterValue = filterValue.toLowerCase()
